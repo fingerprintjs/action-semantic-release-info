@@ -1,0 +1,24 @@
+name: 'Get Semantic Release Info'
+description: 'Action to get next semantic release info, does not publish. export the info as output variables'
+author: 'Jossef Harush'
+outputs:
+  type:
+    description: 'The part of the version incremented - major/minor/patch'
+  channel:
+    description: 'The distribution channel on which the last release was initially made available'
+  git_head:
+    description: 'The sha of the last commit being part of the release'
+  version:
+    description: 'The version of the release'
+  git_tag:
+    description: 'The Git tag associated with the release'
+  name:
+    description: 'The name of the release'
+  notes:
+    description: 'The release notes of the release (a summary of git commits)'
+branding:
+  icon: 'package'
+  color: 'green'
+runs:
+  using: 'node12'
+  main: 'index.js'

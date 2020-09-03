@@ -1,0 +1,9 @@
+{
+  "name": "action-semantic-release-info",
+  "version": "1.0.0",
+  "dependencies": {
+    "@actions/core": "^1.2.5",
+    "semantic-release": "^17.1.1"
+  },
+  "license": "MIT"
+}
