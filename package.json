@@ -1,9 +1,14 @@
 {
   "name": "action-semantic-release-info",
-  "version": "1.0.0",
+  "scripts": {
+    "build": "ncc build src/main.js"
+  },
   "dependencies": {
-    "@actions/core": "^1.2.5",
-    "semantic-release": "^17.1.1"
+    "@actions/core": "^1.10.0",
+    "semantic-release": "^17.4.7"
+  },
+  "devDependencies": {
+    "@zeit/ncc": "^0.22.3"
   },
   "license": "MIT"
 }
