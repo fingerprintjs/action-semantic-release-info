@@ -1,6 +1,4 @@
 const semanticRelease = require('semantic-release');
-const commitAnalyzer = require('@semantic-release/commit-analyzer');
-const notesGenerator = require('@semantic-release/release-notes-generator');
 const core = require("@actions/core");
 
 async function main() {
@@ -39,3 +37,6 @@ if (require.main === module) {
             process.exit(1);
         });
 }
+
+module.exports.main = main;
+
