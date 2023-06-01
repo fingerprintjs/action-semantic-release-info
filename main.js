@@ -2,13 +2,14 @@ const semanticRelease = require('semantic-release');
 const core = require("@actions/core");
 const github = require('@actions/github');
 
+require('debug').enable('semantic-release:*')
+
 async function main() {
     try {
         const currentBranch = github.context.ref.replace('refs/heads/', '');
         console.log(currentBranch, github.context.ref);
         const result = await semanticRelease({
             noCi: true, dryRun: true, branches: currentBranch,
-            debug: true,
             "plugins": [
                 ["@semantic-release/commit-analyzer", {
                     "preset": "angular",
