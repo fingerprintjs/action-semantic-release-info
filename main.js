@@ -5,8 +5,10 @@ const github = require('@actions/github');
 async function main() {
     try {
         const currentBranch = github.context.ref.replace('refs/heads/', '');
+        console.log(currentBranch, github.context.ref);
         const result = await semanticRelease({
-            noCi: true, dryRun: true, branches: [],
+            noCi: true, dryRun: true, branches: currentBranch,
+            debug: true,
             "plugins": [
                 ["@semantic-release/commit-analyzer", {
                     "preset": "angular",
