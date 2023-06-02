@@ -116,6 +116,7 @@ async function main() {
             core.setOutput("notes", nextRelease.notes);
         } else {
             core.setFailed('no info regarding next release');
+            process.exit(1);
         }
     } catch (err) {
         core.setFailed(err)
