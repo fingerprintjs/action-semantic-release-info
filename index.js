@@ -21,6 +21,7 @@ function executeCommand(cmd, workingDirectory = null) {
 
 async function main() {
     await executeCommand('npm ci --only=prod', __dirname);
+    await executeCommand('git checkout $GITHUB_HEAD_REF', __dirname)
     await require('./main').main();
 }
 
