@@ -7,9 +7,7 @@ Add this step in your workflow file
 ```yaml
 - name: Gets semantic release info
   id: semantic_release_info
-  uses: jossef/action-semantic-release-info@v2.1.0
-  env:
-    GITHUB_TOKEN: ${{ github.token }}
+  uses: fingerprintjs/action-semantic-release-info@v1
 ```
 
 ### Output Variables
@@ -21,6 +19,7 @@ Add this step in your workflow file
 - `git_tag` - The Git tag associated with the release
 - `name` - The name of the release
 - `notes` - The release notes of the release (a summary of git commits)
+- `no_release` - If true, new release will not generated after merging the pr
 
 output variables can be accessed after the step is completed via 
 ```
@@ -28,59 +27,42 @@ ${{ steps.semantic_release_info.outputs.<variable name> }}
 ```
 
 ### Full Example
-In this example I build auto generated docs, commit the built docs artifacts and make a tagged release  
+In this example I get changelog for the future release and add a comment to the pr with it.  
 
 ```yaml
 
-name: CI
+name: Add release info comment
 
-on:
-  push:
-    branches:
-      - '**'
-    tags-ignore:
-      - '*.*'
+on: [pull_request]
 
 jobs:
-  build:
+  release-comment:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-            
-      - name: Gets semantic release info
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Collect semantic-release-info
         id: semantic_release_info
-        uses: jossef/action-semantic-release-info@v2.1.0
+        uses: fingerprintjs/action-semantic-release-info@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
-      
-      - name: Build auto generated docs
-        run: |
-          npm install
-          npm run build-docs
-      
-      - name: Commit files
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add -A
-          git commit -m "docs(): bumping release ${{ steps.semantic_release_info.outputs.git_tag }}"
-          git tag ${{ steps.semantic_release_info.outputs.git_tag }}
-          
-      - name: Push changes
-        uses: ad-m/github-push-action@v0.6.0
+      - if: ${{ steps.semantic_release_info.outputs.no_release == 'false' }}
+        name: Add comment to the PR
+        uses: marocchino/sticky-pull-request-comment@3d60a5b2dae89d44e0c6ddc69dd7536aec2071cd
         with:
-          github_token: ${{ github.token }}
-          tags: true
-
-      - name: Create GitHub Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+          header: ReleasePreview
+          recreate: true
+          message: |
+            ## This PR will create a ${{steps.semantic_release_info.outputs.type}} release :rocket:
+            ${{steps.semantic_release_info.outputs.notes}}
+      - if: ${{ steps.semantic_release_info.outputs.no_release == 'true' }}
+        name: Add comment to the PR
+        uses: marocchino/sticky-pull-request-comment@3d60a5b2dae89d44e0c6ddc69dd7536aec2071cd
         with:
-          tag_name: ${{ steps.semantic_release_info.outputs.git_tag }}
-          release_name: ${{ steps.semantic_release_info.outputs.git_tag }}
-          body: ${{ steps.semantic_release_info.outputs.notes }}
-          draft: false
-          prerelease: false
+          header: ReleasePreview
+          recreate: true
+          message: |
+            ## This PR will not create a new release :rocket:
 ```
 
