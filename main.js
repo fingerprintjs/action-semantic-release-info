@@ -7,7 +7,7 @@ require('debug').enable('semantic-release:*')
 
 async function main() {
     try {
-        const currentBranch = core.getInput('currentBranch');
+        const currentBranch = process.env.GITHUB_HEAD_REF;
         const result = await semanticRelease({
             noCi: true, dryRun: true, branches: [currentBranch, 'main'],
             "plugins": [

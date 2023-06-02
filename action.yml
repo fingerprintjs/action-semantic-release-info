@@ -1,9 +1,6 @@
 name: 'Get Semantic Release Info'
 description: 'Action to get next semantic release info, does not publish. export the info as output variables'
 author: 'Jossef Harush'
-inputs:
-  currentBranch:
-    description: 'Branch for the current PR'
 outputs:
   type:
     description: 'The part of the version incremented - major/minor/patch'
