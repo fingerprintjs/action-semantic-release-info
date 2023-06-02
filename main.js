@@ -114,9 +114,10 @@ async function main() {
             core.setOutput("git_tag", nextRelease.gitTag);
             core.setOutput("name", nextRelease.name);
             core.setOutput("notes", nextRelease.notes);
+            core.setOutput("no_release", false);
         } else {
+            core.setOutput("no_release", true);
             core.setFailed('no info regarding next release');
-            process.exit(1);
         }
     } catch (err) {
         core.setFailed(err)

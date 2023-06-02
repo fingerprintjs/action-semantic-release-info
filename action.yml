@@ -16,6 +16,8 @@ outputs:
     description: 'The name of the release'
   notes:
     description: 'The release notes of the release (a summary of git commits)'
+  no_release:
+    description: 'If true, new release will not generated after merging the pr'
 branding:
   icon: 'package'
   color: 'green'
