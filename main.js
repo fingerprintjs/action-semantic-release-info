@@ -6,7 +6,7 @@ require('debug').enable('semantic-release:*')
 
 async function main() {
     try {
-        const currentBranch = github.context.ref.replace('refs/', '');
+        const currentBranch = github.context.ref;
         console.log(currentBranch, github.context.ref);
         const result = await semanticRelease({
             noCi: true, dryRun: true, branches: [currentBranch, 'main'],
