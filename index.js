@@ -23,13 +23,13 @@ async function main() {
     const currentBranch = process.env.GITHUB_HEAD_REF;
     await executeCommand(`git checkout ${currentBranch}`);
     await executeCommand('npm ci --only=prod', __dirname);
-    await require('./main').main();
+    return await require('./main').main();
 }
 
 if (require.main === module) {
     main()
-        .then(() => {
-            console.log('index.js success');
+        .then((res) => {
+            console.log('index.js success', res);
             process.exit(0)
         })
         .catch(e => {
