@@ -125,12 +125,8 @@ async function main() {
 
 if (require.main === module) {
     main()
-        .then(() => {
-            console.log('main.js success');
-            process.exit(0)
-        })
+        .then(() => process.exit(0))
         .catch(e => {
-            console.log('main.js fail');
             console.error(e);
             process.exit(1);
         });
