@@ -21,6 +21,14 @@ function executeCommand(cmd, workingDirectory = null) {
 
 async function main() {
     await executeCommand('npm ci --only=prod', __dirname);
+    console.log('process.env.GITHUB_HEAD_REF', process.env.GITHUB_HEAD_REF);
+    await executeCommand('pwd', __dirname);
+    await executeCommand('pwd');
+    await executeCommand('ls -la', __dirname);
+    await executeCommand('git status', __dirname);
+    const core = require('@actions/core');
+    const currentBranch = core.getInput('currentBranch');
+    await executeCommand(`git checkout ${currentBranch}`, __dirname);
     await require('./main').main();
 }
 

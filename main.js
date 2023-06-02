@@ -2,14 +2,12 @@ delete process.env.GITHUB_ACTIONS;
 
 const semanticRelease = require('semantic-release');
 const core = require("@actions/core");
-const github = require('@actions/github');
 
 require('debug').enable('semantic-release:*')
 
 async function main() {
     try {
         const currentBranch = core.getInput('currentBranch');
-        console.log(currentBranch, github.context.ref);
         const result = await semanticRelease({
             noCi: true, dryRun: true, branches: [currentBranch, 'main'],
             "plugins": [
