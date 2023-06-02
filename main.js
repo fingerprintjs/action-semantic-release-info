@@ -9,7 +9,7 @@ async function main() {
         const currentBranch = github.context.ref;
         console.log(currentBranch, github.context.ref);
         const result = await semanticRelease({
-            noCi: true, dryRun: true, branches: [currentBranch, 'main'],
+            noCi: true, dryRun: true, branches: [currentBranch, 'main', 'semantic-release-preview'],
             "plugins": [
                 ["@semantic-release/commit-analyzer", {
                     "preset": "angular",
