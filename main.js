@@ -1,3 +1,5 @@
+delete process.env.GITHUB_ACTIONS;
+
 const semanticRelease = require('semantic-release');
 const core = require("@actions/core");
 const github = require('@actions/github');
