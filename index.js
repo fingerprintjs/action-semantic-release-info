@@ -28,8 +28,12 @@ async function main() {
 
 if (require.main === module) {
     main()
-        .then(() => process.exit(0))
+        .then(() => {
+            console.log('index.js success');
+            process.exit(0)
+        })
         .catch(e => {
+            console.log('index.js fail');
             console.error(e);
             process.exit(1);
         });

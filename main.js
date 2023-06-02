@@ -3,8 +3,6 @@ delete process.env.GITHUB_ACTIONS;
 const semanticRelease = require('semantic-release');
 const core = require("@actions/core");
 
-require('debug').enable('semantic-release:*')
-
 const plugins = [
     [
         '@semantic-release/commit-analyzer',
@@ -127,8 +125,12 @@ async function main() {
 
 if (require.main === module) {
     main()
-        .then(() => process.exit(0))
+        .then(() => {
+            console.log('main.js success');
+            process.exit(0)
+        })
         .catch(e => {
+            console.log('main.js fail');
             console.error(e);
             process.exit(1);
         });
