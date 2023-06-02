@@ -1,4 +1,4 @@
-const semanticRelease = require('semantic-release');
+const semanticRelease = import('semantic-release');
 const core = require("@actions/core");
 const github = require('@actions/github');
 
