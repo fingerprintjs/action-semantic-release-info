@@ -20,5 +20,5 @@ branding:
   icon: 'package'
   color: 'green'
 runs:
-  using: 'node18'
+  using: 'node16'
   main: 'index.js'

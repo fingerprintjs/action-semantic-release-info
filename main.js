@@ -1,10 +1,10 @@
+const semanticRelease = require('semantic-release');
 const core = require("@actions/core");
 const github = require('@actions/github');
 
 require('debug').enable('semantic-release:*')
 
 async function main() {
-    const semanticRelease = import('semantic-release');
     try {
         const currentBranch = github.context.ref.replace('refs/', '');
         console.log(currentBranch, github.context.ref);
