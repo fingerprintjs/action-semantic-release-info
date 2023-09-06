@@ -1,6 +1,9 @@
 # GitHub Action - Get Next Semantic Release Info
 This GitHub Action gets next semantic release info, does not publish. export the info as output variables.
 
+> **Note**
+> This package isn’t part of our core product. It’s kindly shared “as-is” without any guaranteed level of support from Fingerprint. We warmly welcome community contributions.
+
 ## Usage
 
 Add this step in your workflow file
@@ -30,8 +33,7 @@ ${{ steps.semantic_release_info.outputs.<variable name> }}
 In this example I get changelog for the future release and add a comment to the pr with it.  
 
 ```yaml
-
-name: Add release info comment
+name: Add release preview comment
 
 on: [pull_request]
 
@@ -49,7 +51,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
       - if: ${{ steps.semantic_release_info.outputs.no_release == 'false' }}
         name: Add comment to the PR
-        uses: marocchino/sticky-pull-request-comment@3d60a5b2dae89d44e0c6ddc69dd7536aec2071cd
+        uses: marocchino/sticky-pull-request-comment@v2
         with:
           header: ReleasePreview
           recreate: true
@@ -58,11 +60,20 @@ jobs:
             ${{steps.semantic_release_info.outputs.notes}}
       - if: ${{ steps.semantic_release_info.outputs.no_release == 'true' }}
         name: Add comment to the PR
-        uses: marocchino/sticky-pull-request-comment@3d60a5b2dae89d44e0c6ddc69dd7536aec2071cd
+        uses: marocchino/sticky-pull-request-comment@v2
         with:
           header: ReleasePreview
           recreate: true
           message: |
             ## This PR will not create a new release :rocket:
+      - name: Add release notes preview to the job summary
+        if: ${{ steps.semantic_release_info.outputs.no_release == 'false' }}
+        run: |
+          echo "## This PR will create a ${{steps.semantic_release_info.outputs.type}} release :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo "${{steps.semantic_release_info.outputs.notes}}" >> $GITHUB_STEP_SUMMARY
+      - name: Add release notes preview to the job summary
+        if: ${{ steps.semantic_release_info.outputs.no_release == 'true' }}
+        run: |
+          echo "## This PR will not create a new release :rocket:" >> $GITHUB_STEP_SUMMARY
 ```
 
