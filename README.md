@@ -1,12 +1,12 @@
 # GitHub Action - Get Next Semantic Release Info
-This GitHub Action gets next semantic release info, does not publish. export the info as output variables.
+This GitHub Action summarizes information about the next semantic release. It does not publish the release. The information is exported as output variables of the GitHub action.
 
 > **Note**
 > This package isn’t part of our core product. It’s kindly shared “as-is” without any guaranteed level of support from Fingerprint. We warmly welcome community contributions.
 
 ## Usage
 
-Add this step in your workflow file
+Add this step to your GitHub workflow file: 
 ```yaml
 - name: Gets semantic release info
   id: semantic_release_info
@@ -30,7 +30,7 @@ ${{ steps.semantic_release_info.outputs.<variable name> }}
 ```
 
 ### Full Example
-In this example I get changelog for the future release and add a comment to the pr with it.  
+For example, you can get a changelog of a future release and add it as a comment to a pull request: 
 
 ```yaml
 name: Add release preview comment
