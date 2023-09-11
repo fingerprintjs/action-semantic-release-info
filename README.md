@@ -15,6 +15,11 @@ Add this step to your GitHub workflow file:
 
 ### Output Variables
 
+After the action is completed, you can access the output variables using this pattern:
+```yaml
+${{ steps.semantic_release_info.outputs.<variable name> }}
+```
+
 - `type` - The part of the version incremented - major/minor/patch
 - `channel` - The distribution channel on which the last release was initially made available
 - `git_head` - The sha of the last commit being part of the release
@@ -23,11 +28,6 @@ Add this step to your GitHub workflow file:
 - `name` - The name of the release
 - `notes` - The release notes of the release (a summary of git commits)
 - `no_release` - If true, new release will not generated after merging the pr
-
-output variables can be accessed after the step is completed via 
-```
-${{ steps.semantic_release_info.outputs.<variable name> }}
-```
 
 ### Full Example
 For example, you can get a changelog of a future release and add it as a comment to a pull request: 
