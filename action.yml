@@ -1,6 +1,6 @@
-name: 'Get Semantic Release Info'
+name: 'Semantic Release Preview'
 description: 'Action to get next semantic release info, does not publish. export the info as output variables'
-author: 'Jossef Harush'
+author: 'FingerprintJS'
 outputs:
   type:
     description: 'The part of the version incremented - major/minor/patch'
