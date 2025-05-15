@@ -1,6 +1,11 @@
 name: 'Semantic Release Preview'
 description: 'Action to get next semantic release info, does not publish. export the info as output variables'
 author: 'FingerprintJS'
+inputs:
+  semanticReleasePlugins:
+    description: 'Additional semantic release plugins'
+    default: ''
+    required: false
 outputs:
   type:
     description: 'The part of the version incremented - major/minor/patch'
