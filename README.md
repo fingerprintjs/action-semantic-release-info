@@ -13,6 +13,20 @@ Add this step to your GitHub workflow file:
   uses: fingerprintjs/action-semantic-release-info@v1
 ```
 
+### Inputs
+
+- `semanticReleasePlugins` (optional): Additional Semantic Release plugins to install and include. For example;
+  ```
+  - name: Collect semantic-release-info
+    id: semantic_release_info
+    uses: fingerprintjs/action-semantic-release-info@v1
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+    with:
+      semanticReleasePlugins: |
+        @fingerprintjs/semantic-release-native-dependency-plugin@^1.2.1
+  ```
+
 ### Output Variables
 
 After the action is completed, you can access the output variables using this pattern:
