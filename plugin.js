@@ -14,8 +14,12 @@ async function findPluginConfig(pluginName) {
         throw new Error(`Project semantic release config file not found.`);
     }
 
-    if (!config.plugins || !Array.isArray(config.plugins)) {
+    if (!config.plugins) {
         throw new Error(`Project release config file doesn't have plugins field.`);
+    }
+
+    if (!Array.isArray(config.plugins)) {
+        throw new Error(`Project release config file plugins field is not an array.`);
     }
 
     const pluginConfig = config.plugins.find(plugin => {
