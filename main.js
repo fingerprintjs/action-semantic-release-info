@@ -2,6 +2,8 @@ delete process.env.GITHUB_ACTIONS;
 
 const semanticRelease = require('semantic-release');
 const core = require("@actions/core");
+const { executeCommand } = require("./exec");
+const { extractPluginName, findPluginConfig } = require("./plugin");
 
 const plugins = [
     [
@@ -22,6 +24,22 @@ const plugins = [
 async function main() {
     try {
         const currentBranch = process.env.GITHUB_HEAD_REF;
+
+        const extraPlugins = core.getMultilineInput('semanticReleasePlugins').filter(Boolean);
+        if (extraPlugins.length > 0) {
+            console.info('Installing extra plugins...');
+            for (const extraPlugin of extraPlugins) {
+                console.info(`Installing ${extraPlugin}...`);
+                const pluginName = extractPluginName(extraPlugin);
+                await executeCommand(`yarn add ${extraPlugin}`, __dirname);
+                const pluginConfig = await findPluginConfig(pluginName);
+                plugins.push([
+                    pluginName,
+                    pluginConfig,
+                ]);
+            }
+        }
+
         const result = await semanticRelease({
             noCi: true, dryRun: true, branches: [currentBranch, 'main'],
             "plugins": plugins
