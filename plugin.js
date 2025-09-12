@@ -7,8 +7,8 @@ function extractPluginName(pluginName) {
         : pluginName;
 }
 
-async function findPluginConfig(pluginName) {
-    const { config } = await cosmiconfig.cosmiconfig('release').search();
+async function findPluginConfig(pluginName, cwd) {
+    const { config } = await cosmiconfig.cosmiconfig('release').search(cwd);
 
     if (!config) {
         throw new Error(`Project semantic release config file not found.`);
