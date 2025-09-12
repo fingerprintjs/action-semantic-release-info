@@ -32,8 +32,8 @@ async function main() {
             for (const extraPlugin of extraPlugins) {
                 console.info(`Installing ${extraPlugin}...`);
                 const pluginName = extractPluginName(extraPlugin);
-                await executeCommand(`yarn add ${extraPlugin}`, __dirname);
-                const pluginConfig = await findPluginConfig(pluginName);
+                await executeCommand(`yarn add ${extraPlugin}`, cwd);
+                const pluginConfig = await findPluginConfig(pluginName, cwd);
                 plugins.push([
                     pluginName,
                     pluginConfig,
