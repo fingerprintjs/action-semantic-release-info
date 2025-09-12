@@ -26,6 +26,7 @@ async function main() {
         const currentBranch = process.env.GITHUB_HEAD_REF;
 
         const extraPlugins = core.getMultilineInput('semanticReleasePlugins').filter(Boolean);
+        const cwd = core.getInput('cwd') || process.cwd()
         if (extraPlugins.length > 0) {
             console.info('Installing extra plugins...');
             for (const extraPlugin of extraPlugins) {
@@ -41,8 +42,12 @@ async function main() {
         }
 
         const result = await semanticRelease({
-            noCi: true, dryRun: true, branches: [currentBranch, 'main'],
-            "plugins": plugins
+            noCi: true, 
+            dryRun: true,
+            branches: [currentBranch, 'main'],
+            plugins,
+        }, {
+            cwd,
         });
         if (result) {
             const {nextRelease} = result;

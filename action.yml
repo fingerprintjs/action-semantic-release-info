@@ -6,6 +6,10 @@ inputs:
     description: 'Additional semantic release plugins'
     default: ''
     required: false
+  cwd:
+    default: ''
+    required: false
+    description: 'The working directory in which semantic-release should be executed.'
 outputs:
   type:
     description: 'The part of the version incremented - major/minor/patch'

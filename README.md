@@ -26,6 +26,16 @@ Add this step to your GitHub workflow file:
       semanticReleasePlugins: |
         @fingerprintjs/semantic-release-native-dependency-plugin@^1.2.1
   ```
+- `cwd` - The working directory in which semantic-release should be executed. Defaults to the root of the repository.
+  ```
+    - name: Collect semantic-release-info
+      id: semantic_release_info
+      uses: fingerprintjs/action-semantic-release-info@v1
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      with:
+        cwd: ./sdk
+  ```
 
 ### Output Variables
 
